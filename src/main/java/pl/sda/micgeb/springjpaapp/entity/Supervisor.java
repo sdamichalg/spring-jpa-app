@@ -5,11 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.sda.micgeb.springjpaapp.model.EmployeeType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -23,4 +22,6 @@ public class Supervisor {
     private String lastName;
     private BigDecimal salary;
     private EmployeeType employeeType;
+    @OneToMany(mappedBy = "supervisor")
+    private Set<Employee> employees;
 }

@@ -23,4 +23,12 @@ public class Employee {
     private LocalDate contractEnd;
     @OneToOne
     private EntryCard entryCard;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    @ManyToOne
+    @JoinColumn(name = "supervisor_id")
+    private Supervisor supervisor;
 }
