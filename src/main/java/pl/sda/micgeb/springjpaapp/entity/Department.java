@@ -3,6 +3,7 @@ package pl.sda.micgeb.springjpaapp.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.sda.micgeb.springjpaapp.model.Address;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -19,5 +20,7 @@ public class Department {
     private String name;
     @OneToMany(mappedBy = "department")
     private Set<Employee> employees;
+    @Embedded
+    private Address address;
 
 }
