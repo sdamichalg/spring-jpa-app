@@ -14,4 +14,12 @@ public class DepartmentMapper {
 
         return dto;
     }
+
+    public Department toEntity(DepartmentDto dto) {
+        Department entity = new Department();
+        entity.setName(dto.getName());
+        entity.setAddress(dto.getAddress());
+
+        return entity;
+    }
 }

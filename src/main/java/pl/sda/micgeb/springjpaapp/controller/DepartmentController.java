@@ -34,4 +34,13 @@ public class DepartmentController {
         List<DepartmentDto> departmentsByName = departmentService.getDepartmentsByName(name);
         return ResponseEntity.ok(departmentsByName);
     }
+
+    @PostMapping("/new")
+    public ResponseEntity<Void> addNewDepartment(@RequestBody DepartmentDto dto) {
+        departmentService.addDepartment(dto);
+
+        return ResponseEntity.ok().build();
+    }
+
+
 }
