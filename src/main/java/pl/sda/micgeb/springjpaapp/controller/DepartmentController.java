@@ -28,4 +28,10 @@ public class DepartmentController {
 
         return ResponseEntity.ok(departmentsByCity);
     }
+
+    @GetMapping("/v1")
+    public ResponseEntity<List<DepartmentDto>> getDepartmentByName(@RequestParam String name) {
+        List<DepartmentDto> departmentsByName = departmentService.getDepartmentsByName(name);
+        return ResponseEntity.ok(departmentsByName);
+    }
 }

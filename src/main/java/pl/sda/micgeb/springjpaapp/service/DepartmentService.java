@@ -34,4 +34,13 @@ public class DepartmentService {
 
         return departmentDtos;
     }
+
+    public List<DepartmentDto> getDepartmentsByName(String name) {
+        List<Department> allByName = departmentRepository.findAllByName(name);
+
+        return allByName.stream()
+                .map(dep -> departmentMapper.toDto(dep))
+                .collect(Collectors.toList());
+
+    }
 }
