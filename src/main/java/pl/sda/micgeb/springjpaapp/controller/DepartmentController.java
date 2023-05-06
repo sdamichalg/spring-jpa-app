@@ -2,12 +2,11 @@ package pl.sda.micgeb.springjpaapp.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.sda.micgeb.springjpaapp.model.dtos.DepartmentDto;
 import pl.sda.micgeb.springjpaapp.service.DepartmentService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/department")
@@ -21,5 +20,12 @@ public class DepartmentController {
         DepartmentDto departmentById = departmentService.getDepartmentById(id);
 
         return ResponseEntity.ok(departmentById);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DepartmentDto>> getDepartmentByCity(@RequestParam String city) {
+        List<DepartmentDto> departmentsByCity = departmentService.getDepartmentsByCity(city);
+
+        return ResponseEntity.ok(departmentsByCity);
     }
 }

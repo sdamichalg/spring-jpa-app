@@ -6,7 +6,9 @@ import pl.sda.micgeb.springjpaapp.entity.Department;
 import pl.sda.micgeb.springjpaapp.model.dtos.DepartmentDto;
 import pl.sda.micgeb.springjpaapp.repository.DepartmentRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,5 +23,15 @@ public class DepartmentService {
             return departmentMapper.toDto(department.get());
         }
         return new DepartmentDto();
+    }
+
+    public List<DepartmentDto> getDepartmentsByCity(String city) {
+        List<Department> allByAddressCity = departmentRepository.findAllByAddress_City(city);
+
+        List<DepartmentDto> departmentDtos = allByAddressCity.stream()
+                .map(dep -> departmentMapper.toDto(dep))
+                .collect(Collectors.toList());
+
+        return departmentDtos;
     }
 }
