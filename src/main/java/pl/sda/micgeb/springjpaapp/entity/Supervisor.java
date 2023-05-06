@@ -21,6 +21,7 @@ public class Supervisor {
     private String firstName;
     private String lastName;
     private BigDecimal salary;
+    @Enumerated(EnumType.STRING)
     private EmployeeType employeeType;
     @OneToMany(mappedBy = "supervisor")
     private Set<Employee> employees;
