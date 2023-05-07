@@ -44,9 +44,9 @@ class DepartmentControllerTest {
         //given
         //when and //then
         mockMvc.perform(get("/department/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.name").value("IT"))
+                .andExpect(MockMvcResultMatchers.status().isOk()) //sprawdzony status http
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON)) //sprawdzony media type odpowiedzi
+                .andExpect(jsonPath("$.name").value("IT")) //sprawdzamy response body (poszczególne wartości)
         ;
     }
 }
