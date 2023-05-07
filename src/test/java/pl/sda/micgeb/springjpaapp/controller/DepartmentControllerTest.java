@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -29,16 +30,6 @@ class DepartmentControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-//    {
-//        "name": "IT",
-//            "address": {
-//                 "country": "Poland",
-//                "city": "Warsaw",
-//                "street": "Nowy Świat",
-//                "zipCode": "00-001"
-//    }
-//    }
-
     @Test
     void getDepartmentById() throws Exception {
         //given
@@ -47,6 +38,29 @@ class DepartmentControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk()) //sprawdzony status http
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON)) //sprawdzony media type odpowiedzi
                 .andExpect(jsonPath("$.name").value("IT")) //sprawdzamy response body (poszczególne wartości)
+                .andExpect(jsonPath("$.address.country").value("Poland"))
+                .andExpect(jsonPath("$.address.city").value("Warsaw"))
+                .andExpect(jsonPath("$.address.street").value("Nowy Świat"))
+                .andExpect(jsonPath("$.address.zipCode").value("00-001"))
         ;
+    }
+
+    @Test
+    void getDepartmentsByCity() throws Exception {
+//        department2.setAddress(new Address("Poland", "Krakow", "Rynek Główny", "31-042"));
+
+        mockMvc.perform(get("/department/v1?name=Sales"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].name").value("Sales"))
+                .andExpect(jsonPath("$[0].address.country").value("Poland"))
+                .andExpect(jsonPath("$[0].address.city").value("Krakow"))
+                .andExpect(jsonPath("$[0].address.street").value("Rynek Główny"))
+                .andExpect(jsonPath("$[0].address.zipCode").value("31-042"))
+
+        ;
+
     }
 }
